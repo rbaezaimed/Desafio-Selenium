@@ -6,6 +6,8 @@ import pages.BasePage;
 import pages.InventoryPage;
 import pages.LoginPage;
 
+import static org.testng.Assert.assertTrue;
+
 public class CarritoCompraTest {
 
     @AfterClass
@@ -25,6 +27,8 @@ public class CarritoCompraTest {
         loginPage.verificarInicioSesion();
         inventoryPage.agregarPrimerProductoDeLista();
         inventoryPage.clickBtnCarrito();
-        inventoryPage.verificarProductoAgregadoEnCarrito("Sauce Labs Backpack");
+
+        String xpathProductoEnCarrito = String.format("//div[@data-test='inventory-item-name' and contains(normalize-space(.), '%s')]", "Sauce Labs Backpack");
+        assertTrue(inventoryPage.elementIsDisplayed(xpathProductoEnCarrito));
     }
 }

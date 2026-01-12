@@ -5,6 +5,8 @@ import org.testng.annotations.AfterClass;
 import pages.BasePage;
 import pages.LoginPage;
 
+import static org.testng.Assert.assertTrue;
+
 public class LoginTest {
 
     @AfterClass
@@ -21,7 +23,8 @@ public class LoginTest {
 
        loginPage.navigateToLoginPage();
        loginPage.iniciarSesion(user, pass);
-       loginPage.verficarErrorInicioSesion();
+
+       assertTrue(loginPage.elementIsDisplayed("//h3[@data-test='error' and contains(normalize-space(.), 'Epic sadface: Sorry, this user has been locked out.')]"));
     }
 
 
