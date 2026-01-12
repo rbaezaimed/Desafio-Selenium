@@ -50,4 +50,22 @@ public class InventoryPage extends BasePage{
                 .collect(Collectors.toList());
     }
 
+    public void clickBtnCheckout() {
+        clickElement("//button[@id='checkout']");
+    }
+
+    public void rellenarFormularioYourInformation(String firstName, String lastName, String postalCode) {
+        write("//*[@id=\"first-name\"]", firstName);
+        write("//*[@id=\"last-name\"]", lastName);
+        write("//*[@id=\"postal-code\"]", postalCode);
+    }
+
+    public void clickBtnContinue() {
+        clickElement("//*[@id=\"continue\"]");
+    }
+
+    public void clickBtnFinish() {
+        clickElement("//*[@id=\"finish\"]");
+    }
+
 }

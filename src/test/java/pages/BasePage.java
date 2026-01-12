@@ -6,11 +6,14 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BasePage {
 
@@ -26,7 +29,29 @@ public class BasePage {
 
     static {
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+
+        ChromeOptions options = new ChromeOptions();
+
+        // Desactivar Password Manager, Leak Detection y Autofill
+        Map<String, Object> prefs = new HashMap<>();
+        prefs.put("credentials_enable_service", false);
+        prefs.put("profile.password_manager_enabled", false);
+        prefs.put("profile.password_leak_detection.enabled", false);
+        prefs.put("autofill.profile_enabled", false);
+        prefs.put("autofill.credit_card_enabled", false);
+        options.setExperimentalOption("prefs", prefs);
+
+        // Evitar burbujas y UI de credenciales
+        options.addArguments("--incognito");
+        options.addArguments("--disable-save-password-bubble");
+        options.addArguments("--password-store=basic");
+        options.addArguments("--disable-features=PasswordLeakDetection,PasswordManagerOnboarding,AutofillServerCommunication");
+        options.addArguments("--no-first-run");
+        options.addArguments("--no-default-browser-check");
+        options.addArguments("--disable-notifications");
+        options.addArguments("--disable-infobars");
+
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
     }
 
