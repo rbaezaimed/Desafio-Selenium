@@ -13,15 +13,11 @@ public class LoginPage extends BasePage {
         navigateTo("https://www.saucedemo.com/");
     }
 
-    public void rellenarFormulario() {
-
-        String user = "standard_user";
-        String password = "secret_sauce";
+    public void rellenarFormulario(String user, String password) {
 
         write("//input[@id='user-name']", user);
         write("//input[@id='password']", password);
         clickElement("//input[@id='login-button']");
-
 
     }
 
@@ -29,10 +25,13 @@ public class LoginPage extends BasePage {
         assertTrue(elementIsDisplayed("//span[@data-test='title' and text()='Products']"));
     }
 
-    public void iniciarSesion() {
+    public void verficarErrorInicioSesion() {
+        assertTrue(elementIsDisplayed("//h3[@data-test='error' and contains(normalize-space(.), 'Epic sadface: Sorry, this user has been locked out.')]"));
+    }
+
+    public void iniciarSesion(String user, String password) {
         navigateToLoginPage();
-        rellenarFormulario();
-        verificarInicioSesion();
+        rellenarFormulario(user, password);
     }
 
 }

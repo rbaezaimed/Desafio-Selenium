@@ -5,12 +5,19 @@ import pages.LoginPage;
 
 public class LoginTest {
 
+
     @Test
-    public void iniciarSesion() {
+    public void iniciarSesionIncorrecto() {
        LoginPage loginPage = new LoginPage();
+
+       String user = "locked_out_user";
+       String pass = "secret_sauce";
+
        loginPage.navigateToLoginPage();
-       loginPage.iniciarSesion();
-       loginPage.verificarInicioSesion();
+       loginPage.iniciarSesion(user, pass);
+       loginPage.verficarErrorInicioSesion();
     }
+
+
 
 }

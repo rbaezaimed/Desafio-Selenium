@@ -11,7 +11,10 @@ public class CarritoCompraTest {
         LoginPage loginPage = new LoginPage();
         InventoryPage inventoryPage = new InventoryPage();
 
-        loginPage.iniciarSesion();
+        String user = "standard_user";
+        String password = "secret_sauce";
+
+        loginPage.iniciarSesion(user, password);
         inventoryPage.agregarPrimerProductoDeLista();
         inventoryPage.clickBtnCarrito();
         inventoryPage.verificarProductoAgregadoEnCarrito("Sauce Labs Backpack");
