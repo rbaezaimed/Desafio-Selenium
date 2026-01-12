@@ -5,8 +5,12 @@ import org.testng.annotations.Test;
 import pages.BasePage;
 import pages.InventoryPage;
 import pages.LoginPage;
+import static org.testng.Assert.assertTrue;
 
-public class CarritoCompraTest {
+import java.math.BigDecimal;
+import java.util.List;
+
+public class InventoryTest {
 
     @AfterClass
     public static void cleanDriver() {
@@ -14,17 +18,23 @@ public class CarritoCompraTest {
     }
 
     @Test
-    public void agregarProductoAlCarrito() {
+    public void ordenamientoProductos() {
         LoginPage loginPage = new LoginPage();
         InventoryPage inventoryPage = new InventoryPage();
 
         String user = "standard_user";
         String password = "secret_sauce";
 
+        // Login
         loginPage.iniciarSesion(user, password);
-        loginPage.verificarInicioSesion();
-        inventoryPage.agregarPrimerProductoDeLista();
-        inventoryPage.clickBtnCarrito();
-        inventoryPage.verificarProductoAgregadoEnCarrito("Sauce Labs Backpack");
+
+        //Lista
+        inventoryPage.seleccionarOrdenamientoHighToLow();
+        List<BigDecimal> precios = inventoryPage.obtenerPrecios();
+        BigDecimal primerPrecio = precios.get(0);
+        BigDecimal ultimoPrecio = precios.get(precios.size() - 1);
+
+        assertTrue(primerPrecio.compareTo(ultimoPrecio) > 0);
+
     }
 }

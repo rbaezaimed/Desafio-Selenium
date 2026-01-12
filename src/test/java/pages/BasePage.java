@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -31,6 +32,10 @@ public class BasePage {
 
     public BasePage(WebDriver driver) {
         BasePage.driver = driver;
+    }
+
+    public static void killDriver() {
+        driver.quit();
     }
 
     protected WebElement waitForVisible(By locator, Duration timeout) {
@@ -63,5 +68,10 @@ public class BasePage {
         } catch (TimeoutException e) {
             return false;
         }
+    }
+
+    public void selectDropdownByValue(String selectXpath, String value) {
+        WebElement selectEl = waitForVisible(selectXpath, Duration.ofSeconds(10));
+        new Select(selectEl).selectByValue(value);
     }
 }

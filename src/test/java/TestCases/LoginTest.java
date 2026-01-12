@@ -1,10 +1,16 @@
 package TestCases;
 
 import org.testng.annotations.Test;
+import org.testng.annotations.AfterClass;
+import pages.BasePage;
 import pages.LoginPage;
 
 public class LoginTest {
 
+    @AfterClass
+    public static void cleanDriver() {
+        BasePage.killDriver();
+    }
 
     @Test
     public void iniciarSesionIncorrecto() {
